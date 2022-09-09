@@ -1,6 +1,7 @@
 package com.udacity
 
 import android.app.NotificationManager
+import android.graphics.Color.RED
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_detail.*
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,12 @@ class DetailActivity : AppCompatActivity() {
         notificationManager.cancelNotifications()
         // fill views with value get from notification
         fileNameValue.setText(intent.getStringExtra("file"))
+        if(intent.getStringExtra("status").equals("FAILED")){
+            statusValue.setTextColor(getColor(R.color.colorAccent))
+        }
+        if(intent.getStringExtra("status").equals("SUCCESSFUL")){
+            statusValue.setTextColor(getColor(R.color.colorPrimary))
+        }
         statusValue.setText(intent.getStringExtra("status"))
         // handle ok button click
         button.setOnClickListener {

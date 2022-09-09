@@ -14,7 +14,7 @@
     <string name="channel_name">channel</string>
     <string name="glide">Glide-Image loading library</string>
     <string name="load">Load App-repository by udacity</string>
-    <string name="retrofit">Retrofit-type safe HHTP client for Android and java</string>
+    <string name="retrofit">Retrofit-type safe HHTP client </string>
     <string name="please_select_file">Please select file to download!</string>
     <string name="check_connection">Please check your connection!</string>
     <string name="failed">Download failed try again.</string>
