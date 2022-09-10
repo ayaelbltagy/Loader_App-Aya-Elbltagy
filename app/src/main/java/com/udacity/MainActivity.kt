@@ -3,7 +3,6 @@ package com.udacity
 import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -21,7 +20,6 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -29,9 +27,6 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 
     private var downloadID: Long = 0
-    private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
     private var selectedURL: String? = null
 
 
@@ -50,11 +45,19 @@ class MainActivity : AppCompatActivity() {
                     custom_button.buttonState = ButtonState.Loading
                     download()
                 } else {
-                    Toast.makeText(this, resources.getString(R.string.check_connection), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this,
+                        resources.getString(R.string.check_connection),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
 
             } else {
-                Toast.makeText(this, resources.getString(R.string.please_select_file), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.please_select_file),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -69,13 +72,14 @@ class MainActivity : AppCompatActivity() {
                 val cursor: Cursor = manager.query(query)
                 if (cursor.moveToFirst()) {
                     if (cursor.getCount() > 0) {
-                        var downloadStatus : String
-                        val status: Int = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                        var downloadStatus: String
+                        val status: Int =
+                            cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                         if (status == DownloadManager.STATUS_SUCCESSFUL) {
                             //  on success
                             downloadStatus = "SUCCESSFUL"
                         } else {
-                             //   on failed.
+                            //   on failed.
                             downloadStatus = "FAILED"
 
                         }
@@ -83,14 +87,21 @@ class MainActivity : AppCompatActivity() {
                         custom_button.buttonState = ButtonState.Completed
 
                         // take object from my manager
-                        val notificationManager = getSystemService(NotificationManager::class.java) as NotificationManager
-                        notificationManager.sendNotification("Project 3", context,selectedURL.toString(),downloadStatus)
+                        val notificationManager =
+                            getSystemService(NotificationManager::class.java) as NotificationManager
+                        notificationManager.sendNotification(
+                            "Project 3",
+                            context,
+                            selectedURL.toString(),
+                            downloadStatus
+                        )
                         // call my channel
                         createChannel(CHANNEL_ID.toString(), getString(R.string.channel_name))
                     }
                 }
             } else {
-                Toast.makeText(context, resources.getString(R.string.failed), Toast.LENGTH_LONG).show()
+                Toast.makeText(context, resources.getString(R.string.failed), Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
@@ -107,13 +118,15 @@ class MainActivity : AppCompatActivity() {
                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "udacityFile")
 
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        downloadID = downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+        downloadID =
+            downloadManager.enqueue(request)// enqueue puts the download request in the queue.
 
     }
 
     companion object {
         private const val glideURL = "https://github.com/bumptech/glide"
-        private const val udacityURL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter"
+        private const val udacityURL =
+            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter"
         private const val retrofitURL = "https://github.com/square/retrofit"
         const val CHANNEL_ID = 0
     }
@@ -178,7 +191,6 @@ class MainActivity : AppCompatActivity() {
         }
         return false
     }
-
 
 
 }

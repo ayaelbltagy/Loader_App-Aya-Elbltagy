@@ -1,7 +1,6 @@
 package com.udacity
 
 import android.app.NotificationManager
-import android.graphics.Color.RED
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_detail.*
 import androidx.appcompat.app.AppCompatActivity
