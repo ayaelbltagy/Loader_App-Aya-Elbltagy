@@ -5,12 +5,15 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.udacity.MainActivity.Companion.CHANNEL_ID
 
 
-fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
+fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context,file: String, status:String) {
     // to define which activity that notification will return on it after clicking
     val contentIntent = Intent(applicationContext, DetailActivity::class.java)
+    contentIntent.putExtra("file",file)
+    contentIntent.putExtra("status",status)
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
         0,
@@ -42,10 +45,4 @@ fun NotificationManager.cancelNotifications() {
 }
 
 
-// if you want to cancel the old notification call this
-//val notificationManager =
-//    ContextCompat.getSystemService(
-//        app,
-//        NotificationManager::class.java
-//    ) as NotificationManager
-//notificationManager.cancelNotifications()
+
